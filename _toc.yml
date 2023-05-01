@@ -5,18 +5,12 @@ format: jb-book
 root: README
 
 parts:
-- caption: Introductions to Dask
+- caption: Introductions to Cupy
   chapters:
-    - file: notebooks/00-dask-overview.ipynb
-    - file: notebooks/01-dask-array.ipynb
-    - file: notebooks/02-dask-dataframe.ipynb
-    - file: notebooks/03-dask-cluster.ipynb
+    - file: notebooks/Notebook0_Introduction.ipynb
 
-- caption: Dask and Xarray
+- caption: Cupy and Xarray
   chapters:
-    - file: notebooks/04-dask-xarray.ipynb
+    - file: notebooks/Notebook1_Xarray_Cupy.ipynb
+    - file: notebooks/Notebook2_Xarray_Cupy_Example.ipynb
 
-
-- caption: Dask on HPC
-  chapters:
-    - file: notebooks/05-dask-hpc.ipynb
