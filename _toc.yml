@@ -1,0 +1,22 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: README
+
+parts:
+- caption: Introductions to Dask
+  chapters:
+    - file: notebooks/00-dask-overview.ipynb
+    - file: notebooks/01-dask-array.ipynb
+    - file: notebooks/02-dask-dataframe.ipynb
+    - file: notebooks/03-dask-cluster.ipynb
+
+- caption: Dask and Xarray
+  chapters:
+    - file: notebooks/04-dask-xarray.ipynb
+
+
+- caption: Dask on HPC
+  chapters:
+    - file: notebooks/05-dask-hpc.ipynb
