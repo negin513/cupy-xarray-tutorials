@@ -9,7 +9,7 @@ The materials and notebooks in this tutorial is published as a Jupyter book here
 
 ## What is CUPY-Xarray?
 
-CUPY-Xarray is a Python library that leverages Cupy, a GPU array library, and Xarray, a library for multi-dimensional labeled array computations, to enable fast and efficient data processing on GPUs. By combining the capabilities of Cupy and Xarray, CUPY-Xarray provides a convenient interface for performing accelerated computations and analysis on large multidimensional datasets.
+[CUPY-Xarray](https://github.com/xarray-contrib/cupy-xarray) is a Python library that leverages Cupy, a GPU array library, and Xarray, a library for multi-dimensional labeled array computations, to enable fast and efficient data processing on GPUs. By combining the capabilities of Cupy and Xarray, CUPY-Xarray provides a convenient interface for performing accelerated computations and analysis on large multidimensional datasets.
 
 ## Notebooks
 
