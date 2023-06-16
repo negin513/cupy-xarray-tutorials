@@ -13,4 +13,5 @@ parts:
   chapters:
     - file: notebooks/Notebook1_Xarray_Cupy.ipynb
     - file: notebooks/Notebook2_Xarray_Cupy_Example.ipynb
+    - file: notebooks/Notebook3_Xarray_Cupy_Example.ipynb
 
