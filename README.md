@@ -5,7 +5,7 @@
 
 Welcome to the CUPY-Xarray Notebooks repository for Scipy-2023! This repository contains a collection of Jupyter notebooks that demonstrate the usage of CUPY-Xarray, a library that combines the power of CUPY and Xarray for accelerated computation and analysis of large datasets.
 
-The materials and notebooks in this tutorial is published as a Jupyter book here. [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://ncar.github.io/dask-tutorial/README.html)
+The materials and notebooks in this tutorial is published as a Jupyter book here. [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://negin513.github.io/cupy-xarray-tutorials/README.html)
 
 ## What is CUPY-Xarray?
 
