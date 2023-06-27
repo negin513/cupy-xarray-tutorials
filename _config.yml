@@ -3,7 +3,7 @@
 
 title: Xarray and Cupy
 author: Negin Sobhani, Deepak Cherian, and Max Jones
-logo: images/ncar_logo.png
+logo: images/scipy_logo.png
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
