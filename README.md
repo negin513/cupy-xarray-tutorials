@@ -24,8 +24,12 @@ This repository contains the following Jupyter notebooks:
 
 ## Additional Resources
 
-
 [CuPy User Guide](https://docs.cupy.dev/en/stable/user_guide/index.html)  
 [Xarray User Guide](https://docs.xarray.dev/en/stable/user-guide/index.html)  
 [Cupy-Xarray Github](https://github.com/xarray-contrib/cupy-xarray.git) 
 [NCAR GPU Workshop](https://github.com/NCAR/GPU_workshop)
+
+### Acknowledgments
+
+- NCAR CISL/CSG Team
+- ESDS Initiative
