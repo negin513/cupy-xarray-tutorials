@@ -26,3 +26,8 @@ This repository contains the following Jupyter notebooks:
 * Xarray 
 * NCAR GPU workshop
 * Cupy/Xarray
+
+### Acknowledgments
+
+- NCAR CISL/CSG Team
+- ESDS Initiative
