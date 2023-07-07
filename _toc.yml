@@ -15,5 +15,7 @@ parts:
     - file: notebooks/Notebook2_Xarray_Cupy_BasicOperations.ipynb
     - file: notebooks/Notebook3_Xarray_Cupy_HighLevel.ipynb
     - file: notebooks/Notebook4_Xarray_Cupy_ApplyUfunc.ipynb
+    - file: notebooks/Notebook5_Xarray_Cupy_Example.ipynb
+
 
 
