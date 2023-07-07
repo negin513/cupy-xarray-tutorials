@@ -18,7 +18,7 @@ This repository contains the following Jupyter notebooks:
 1. Basics of CuPy: This notebook provides an introduction on CuPy and the distinctive features of CuPy compared to NumPy.   
 2. Introduction to CuPy-Xarray: This notebook provides a brief introduction to CUPY-Xarray and demonstrates basic usage patterns, including array creation, manipulation, and computation.
 3. Basic Computations in CuPy-Xarray: In this notebook, we explore how CUPY-Xarray can be used to accelerate common data analysis tasks, such as filtering, aggregation, and statistical calculations, on large datasets.
-4. High-level Xarray Functions: CuPy vs. NumPy : In this notebook, we are going to explore high-level Xarray functions such as groupby, rolling mean, and weighted mean, and compared their execution times with traditional NumPy-based implementations.
+4. High-level Xarray Functions: CuPy vs. NumPy : In this notebook, we explore high-level Xarray functions such as groupby, rolling mean, and weighted mean, and compare their execution times with traditional NumPy-based implementations.
 5. Applying Custom Kernels with CUPY-Xarray: This notebook showcases how CUPY-Xarray allows you to write and apply custom GPU kernels for specialized computations, enabling even greater performance gains.
 
 
