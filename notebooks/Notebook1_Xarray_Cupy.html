@@ -1,0 +1,2169 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction to CuPy-Xarray &#8212; Xarray and Cupy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/Notebook1_Xarray_Cupy';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Basic Computations in CuPy-Xarray" href="Notebook2_Xarray_Cupy_BasicOperations.html" />
+    <link rel="prev" title="Basics of CuPy" href="Notebook0_Introduction.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="https://raw.githubusercontent.com/negin513/cupy-xarray-tutorials/main/images/scipy_logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="https://raw.githubusercontent.com/negin513/cupy-xarray-tutorials/main/images/scipy_logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    Xarray with GPUs (CuPy-Xarray)
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introductions to Cupy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Notebook0_Introduction.html">Basics of CuPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Cupy and Xarray</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to CuPy-Xarray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Notebook2_Xarray_Cupy_BasicOperations.html">Basic Computations in CuPy-Xarray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Notebook3_Xarray_Cupy_HighLevel.html">High-level Xarray Functions: CuPy vs. NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Notebook4_Xarray_Cupy_ApplyUfunc.html">Apply Custom Kernels with <code class="docutils literal notranslate"><span class="pre">xarray.apply_ufunc</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Notebook5_Xarray_Cupy_Example.html">Xarray and CuPy (Real Examples)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/negin513/cupy-xarray-tutorials/master?urlpath=tree/docs/notebooks/Notebook1_Xarray_Cupy.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/negin513/cupy-xarray-tutorials" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/negin513/cupy-xarray-tutorials/edit/master/docs/notebooks/Notebook1_Xarray_Cupy.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/negin513/cupy-xarray-tutorials/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Notebook1_Xarray_Cupy.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/Notebook1_Xarray_Cupy.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to CuPy-Xarray</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-this-tutorial-you-learn">In this tutorial, you learn:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-xarray-dataarray-with-cupy">Creating Xarray DataArray with CuPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-for-cupy-arrays">Checking for CuPy Arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-device-information-of-the-dataarray">Accessing Device Information of the DataArray</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transfer">Data Transfer</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transferring-dataarrays-to-another-device">Transferring DataArrays to another Device</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transferring-data-between-host-and-device">Transferring Data between Host and Device</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-cupy-xarray">
+<h1>Introduction to CuPy-Xarray<a class="headerlink" href="#introduction-to-cupy-xarray" title="Permalink to this heading">#</a></h1>
+<p><strong>Negin Sobhani</strong>, <strong>Deepak Cherian</strong>, and <strong>Max Jones</strong><br />
+<a class="reference external" href="mailto:negins&#37;&#52;&#48;ucar&#46;edu">negins<span>&#64;</span>ucar<span>&#46;</span>edu</a>, <a class="reference external" href="mailto:dcherian&#37;&#52;&#48;ucar&#46;edu">dcherian<span>&#64;</span>ucar<span>&#46;</span>edu</a>, and <a class="reference external" href="mailto:max&#37;&#52;&#48;carbonplan&#46;org">max<span>&#64;</span>carbonplan<span>&#46;</span>org</a></p>
+<hr class="docutils" />
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<section id="in-this-tutorial-you-learn">
+<h3>In this tutorial, you learn:<a class="headerlink" href="#in-this-tutorial-you-learn" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Basics of Cupy-Xarray</p></li>
+<li><p>Creating and handling Xarray DataArrays on GPUs</p></li>
+<li><p>Data Transfer Between Host and Device</p></li>
+</ul>
+</section>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Concepts</p></th>
+<th class="head"><p>Importance</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://foundations.projectpythia.org/core/numpy.html">Familiarity with NumPy</a></p></td>
+<td><p>Necessary</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="Notebook0_Introduction.html"><span class="doc std std-doc">Basics of Cupy</span></a></p></td>
+<td><p>Necessary</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://foundations.projectpythia.org/core/xarray.html">Familiarity with Xarray</a></p></td>
+<td><p>Necessary</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>Time to learn</strong>: 10 minutes</p></li>
+</ul>
+</section>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<p>Xarray is a powerful library for working with labeled multi-dimensional arrays in Python. It provides a convenient and intuitive way to manipulate large and complex datasets, and is built on top of NumPy. CuPy, on the other hand, is a library that allows for GPU-accelerated computing with Python and is compatible with NumPy.</p>
+<p>When used together, Xarray and CuPy can provide an easy way to take advantage of GPU acceleration for scientific computing tasks.</p>
+<p>Xarray can wrap custom duck array objects (i.e. NumPy-like arrays) that follow specific protocols.</p>
+<p>CuPy-Xarray provides an interface for using CuPy in Xarray, providing <a class="reference external" href="https://docs.xarray.dev/en/stable/internals/extending-xarray.html">accessors</a> on the Xarray objects.</p>
+<p>This tutorial showcases the use of <code class="docutils literal notranslate"><span class="pre">cupy-xarray</span></code>, which offers a <code class="docutils literal notranslate"><span class="pre">cupy</span></code> accessor that allows access to cupy-specific features.</p>
+<p>First, let’s import our packages</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Import NumPy and CuPy</span>
+<span class="kn">import</span> <span class="nn">cupy</span> <span class="k">as</span> <span class="nn">cp</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">cupy_xarray</span>  <span class="c1"># Adds .cupy to Xarray objects</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="creating-xarray-dataarray-with-cupy">
+<h3>Creating Xarray DataArray with CuPy<a class="headerlink" href="#creating-xarray-dataarray-with-cupy" title="Permalink to this heading">#</a></h3>
+<p>In the previous tutorial, we learned how to create a NumPy and CuPy array:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arr_cpu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">arr_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can create the Xarray DataArray using the CuPy array or NumPy array as the data source in a similar fashion:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a DataArray using CuPy array with three dimensions and 10 elements along each dimension</span>
+<span class="n">da_np</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">arr_cpu</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">])</span>
+
+<span class="n">da_np</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body[data-theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.DataArray (x: 10, y: 10, time: 10)&gt;
+array([[[9.86345808e-01, 4.17660665e-01, 1.88327552e-01, 8.90280942e-01,
+         2.21689274e-01, 3.17943609e-01, 5.00880587e-01, 7.53337533e-01,
+         3.59031996e-01, 1.91030893e-01],
+        [1.33144043e-02, 5.02596284e-01, 5.42913172e-01, 5.23846968e-01,
+         4.05313585e-01, 9.46118837e-01, 1.06548298e-01, 3.47524404e-01,
+         1.52843324e-01, 8.48253778e-01],
+        [4.33649929e-01, 6.23728979e-01, 6.47445402e-01, 9.03623126e-01,
+         9.05012105e-01, 4.06989322e-03, 4.19896664e-01, 8.60406673e-02,
+         7.41788571e-01, 6.22665340e-01],
+        [1.74267952e-01, 6.14897148e-01, 5.01242328e-01, 6.66759345e-01,
+         8.44182632e-01, 3.19620076e-01, 7.90701915e-01, 2.43897985e-01,
+         8.25956047e-01, 6.06534832e-01],
+        [5.28111326e-01, 7.42343565e-01, 8.05094324e-02, 8.84691476e-01,
+         1.69856723e-02, 3.32512453e-01, 6.67738160e-01, 7.06905069e-01,
+         5.16369945e-01, 2.71965903e-01],
+        [2.81638568e-01, 2.89389278e-01, 8.19006807e-01, 3.53878654e-01,
+         9.21084664e-02, 5.69411698e-01, 8.56797393e-01, 3.24107223e-01,
+         8.15087813e-01, 4.70350855e-01],
+        [5.70124339e-01, 7.92088214e-01, 9.33540441e-01, 9.88027072e-01,
+         9.05585677e-01, 5.28417548e-01, 4.40169554e-01, 1.40924601e-01,
+...
+         5.29797743e-01, 9.87589722e-01, 9.18635655e-01, 8.68580278e-01,
+         4.71548324e-01, 3.64257635e-01],
+        [6.42229124e-01, 2.33643023e-02, 5.85033551e-01, 8.80436137e-02,
+         7.07996956e-01, 4.40586920e-01, 3.10391741e-01, 1.22763638e-02,
+         8.02412664e-01, 4.33761051e-01],
+        [1.24780820e-01, 3.53875474e-01, 8.36031716e-01, 2.84138174e-02,
+         3.57476794e-01, 2.44890794e-02, 1.47504786e-02, 3.19465404e-01,
+         2.91984584e-01, 3.39490525e-01],
+        [2.04021642e-01, 4.71267303e-01, 9.03187717e-02, 3.83928128e-01,
+         5.96265409e-01, 3.17287239e-01, 3.22413673e-01, 8.38235070e-01,
+         9.58316554e-01, 9.73589612e-01],
+        [6.13802208e-01, 8.70356525e-01, 5.17350919e-01, 7.72374828e-03,
+         5.35340510e-01, 8.89268388e-01, 6.93943330e-01, 6.29953006e-01,
+         1.70230716e-01, 7.16573680e-01],
+        [8.44214598e-01, 3.35186917e-01, 8.78891352e-01, 1.98027834e-01,
+         6.36005433e-01, 1.21753118e-01, 6.48103717e-01, 8.68341345e-01,
+         7.81023406e-01, 4.45064620e-01],
+        [3.85731750e-01, 8.02230895e-01, 6.41415045e-01, 7.60886886e-01,
+         2.00746550e-01, 3.76787007e-01, 6.68073723e-01, 7.87222270e-01,
+         6.75273015e-01, 8.63705777e-01]]])
+Dimensions without coordinates: x, y, time</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'></div><ul class='xr-dim-list'><li><span>x</span>: 10</li><li><span>y</span>: 10</li><li><span>time</span>: 10</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-13e7652b-12ad-4d7b-9029-fe1e2d6ca48d' class='xr-array-in' type='checkbox' checked><label for='section-13e7652b-12ad-4d7b-9029-fe1e2d6ca48d' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>0.9863 0.4177 0.1883 0.8903 0.2217 ... 0.6681 0.7872 0.6753 0.8637</span></div><div class='xr-array-data'><pre>array([[[9.86345808e-01, 4.17660665e-01, 1.88327552e-01, 8.90280942e-01,
+         2.21689274e-01, 3.17943609e-01, 5.00880587e-01, 7.53337533e-01,
+         3.59031996e-01, 1.91030893e-01],
+        [1.33144043e-02, 5.02596284e-01, 5.42913172e-01, 5.23846968e-01,
+         4.05313585e-01, 9.46118837e-01, 1.06548298e-01, 3.47524404e-01,
+         1.52843324e-01, 8.48253778e-01],
+        [4.33649929e-01, 6.23728979e-01, 6.47445402e-01, 9.03623126e-01,
+         9.05012105e-01, 4.06989322e-03, 4.19896664e-01, 8.60406673e-02,
+         7.41788571e-01, 6.22665340e-01],
+        [1.74267952e-01, 6.14897148e-01, 5.01242328e-01, 6.66759345e-01,
+         8.44182632e-01, 3.19620076e-01, 7.90701915e-01, 2.43897985e-01,
+         8.25956047e-01, 6.06534832e-01],
+        [5.28111326e-01, 7.42343565e-01, 8.05094324e-02, 8.84691476e-01,
+         1.69856723e-02, 3.32512453e-01, 6.67738160e-01, 7.06905069e-01,
+         5.16369945e-01, 2.71965903e-01],
+        [2.81638568e-01, 2.89389278e-01, 8.19006807e-01, 3.53878654e-01,
+         9.21084664e-02, 5.69411698e-01, 8.56797393e-01, 3.24107223e-01,
+         8.15087813e-01, 4.70350855e-01],
+        [5.70124339e-01, 7.92088214e-01, 9.33540441e-01, 9.88027072e-01,
+         9.05585677e-01, 5.28417548e-01, 4.40169554e-01, 1.40924601e-01,
+...
+         5.29797743e-01, 9.87589722e-01, 9.18635655e-01, 8.68580278e-01,
+         4.71548324e-01, 3.64257635e-01],
+        [6.42229124e-01, 2.33643023e-02, 5.85033551e-01, 8.80436137e-02,
+         7.07996956e-01, 4.40586920e-01, 3.10391741e-01, 1.22763638e-02,
+         8.02412664e-01, 4.33761051e-01],
+        [1.24780820e-01, 3.53875474e-01, 8.36031716e-01, 2.84138174e-02,
+         3.57476794e-01, 2.44890794e-02, 1.47504786e-02, 3.19465404e-01,
+         2.91984584e-01, 3.39490525e-01],
+        [2.04021642e-01, 4.71267303e-01, 9.03187717e-02, 3.83928128e-01,
+         5.96265409e-01, 3.17287239e-01, 3.22413673e-01, 8.38235070e-01,
+         9.58316554e-01, 9.73589612e-01],
+        [6.13802208e-01, 8.70356525e-01, 5.17350919e-01, 7.72374828e-03,
+         5.35340510e-01, 8.89268388e-01, 6.93943330e-01, 6.29953006e-01,
+         1.70230716e-01, 7.16573680e-01],
+        [8.44214598e-01, 3.35186917e-01, 8.78891352e-01, 1.98027834e-01,
+         6.36005433e-01, 1.21753118e-01, 6.48103717e-01, 8.68341345e-01,
+         7.81023406e-01, 4.45064620e-01],
+        [3.85731750e-01, 8.02230895e-01, 6.41415045e-01, 7.60886886e-01,
+         2.00746550e-01, 3.76787007e-01, 6.68073723e-01, 7.87222270e-01,
+         6.75273015e-01, 8.63705777e-01]]])</pre></div></div></li><li class='xr-section-item'><input id='section-8dd23807-1be3-43fe-a634-565605cef5a5' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-8dd23807-1be3-43fe-a634-565605cef5a5' class='xr-section-summary'  title='Expand/collapse section'>Coordinates: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'></ul></div></li><li class='xr-section-item'><input id='section-5473a896-78a4-4ae7-a69f-65e6983d58c6' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-5473a896-78a4-4ae7-a69f-65e6983d58c6' class='xr-section-summary'  title='Expand/collapse section'>Indexes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'></ul></div></li><li class='xr-section-item'><input id='section-622bcad6-1ffe-4140-bcda-f380b04432f7' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-622bcad6-1ffe-4140-bcda-f380b04432f7' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a DataArray using NumPy array with three dimensions and 10 elements along each dimension</span>
+<span class="n">da_cp</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">arr_gpu</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">])</span>
+
+<span class="n">da_cp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body[data-theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.DataArray (x: 10, y: 10, time: 10)&gt;
+array([[[2.88196731e-01, 3.71102840e-01, 8.22413516e-01, 7.61603373e-01,
+         2.14247694e-01, 6.08972260e-01, 6.35605124e-01, 4.51735394e-02,
+         3.56580833e-01, 3.33245593e-01],
+        [9.56686233e-02, 3.09634487e-01, 5.72034429e-01, 8.64203361e-01,
+         5.44551902e-01, 4.54445926e-01, 1.21606888e-01, 2.30160410e-01,
+         6.14639953e-01, 7.73246535e-01],
+        [8.03011705e-01, 2.69969912e-01, 2.03781951e-01, 6.64806547e-01,
+         4.93709552e-01, 2.60248353e-01, 6.82195033e-01, 6.75837492e-01,
+         5.07293067e-01, 6.45924343e-01],
+        [1.03968071e-01, 1.31787260e-01, 2.31666523e-02, 2.90727455e-01,
+         6.22514068e-02, 9.54996781e-01, 1.38868633e-01, 3.18043546e-01,
+         9.94141764e-01, 6.52825114e-01],
+        [6.72144360e-01, 9.25109790e-01, 9.24907616e-01, 9.97835547e-01,
+         1.30089788e-01, 3.28381980e-01, 9.47761645e-01, 2.15451004e-01,
+         1.55072912e-01, 2.84564825e-01],
+        [5.32157180e-01, 4.05812774e-01, 6.65152077e-01, 1.62793186e-01,
+         8.38375837e-01, 4.38498164e-01, 3.93970103e-01, 3.25181026e-01,
+         8.43314943e-01, 6.37218468e-01],
+        [9.47935236e-01, 1.39071514e-01, 3.34994498e-01, 7.42907508e-01,
+         1.13865457e-01, 3.69531071e-01, 6.58907523e-01, 4.10997683e-01,
+...
+         5.01101857e-01, 6.76530919e-01, 6.01550513e-01, 1.91761020e-01,
+         2.01591335e-01, 3.73443454e-01],
+        [8.72935075e-01, 9.28175014e-01, 7.03819938e-01, 4.25757273e-01,
+         6.80355431e-01, 1.22351044e-01, 8.22086635e-03, 9.23118431e-01,
+         8.00040998e-02, 3.51963004e-01],
+        [5.30917733e-01, 1.73025731e-03, 5.46551386e-01, 3.41904305e-01,
+         6.11276326e-01, 7.83903426e-01, 7.67650251e-01, 9.27383669e-02,
+         5.99146336e-01, 1.44674661e-02],
+        [9.32478257e-02, 6.51279678e-01, 3.40032365e-01, 6.66761485e-02,
+         3.88243075e-01, 3.06181721e-02, 5.58666002e-01, 3.10356676e-01,
+         6.46523629e-01, 1.19013418e-01],
+        [1.81940990e-01, 3.89650142e-01, 9.98204973e-01, 4.39178186e-02,
+         6.88137446e-02, 7.61541679e-02, 6.26075251e-01, 9.14708720e-01,
+         4.45414011e-01, 5.16678456e-01],
+        [8.51618677e-01, 6.81900815e-01, 6.66821786e-01, 8.75685884e-01,
+         2.90499242e-01, 3.25977864e-01, 3.67627054e-01, 3.93770674e-01,
+         7.40898577e-01, 3.50451112e-02],
+        [7.06374026e-01, 7.19519511e-01, 1.79160522e-01, 8.81425785e-01,
+         3.51431945e-01, 4.11507382e-01, 6.86088790e-01, 3.04671156e-01,
+         5.70729870e-01, 7.76584760e-01]]])
+Dimensions without coordinates: x, y, time</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'></div><ul class='xr-dim-list'><li><span>x</span>: 10</li><li><span>y</span>: 10</li><li><span>time</span>: 10</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-75ba0964-ad4d-45b1-a103-81d68f04ccbd' class='xr-array-in' type='checkbox' checked><label for='section-75ba0964-ad4d-45b1-a103-81d68f04ccbd' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>array([[[2.88196731e-01, 3.71102840e-01, 8.22413516e-01, 7.61603373...</span></div><div class='xr-array-data'><pre>array([[[2.88196731e-01, 3.71102840e-01, 8.22413516e-01, 7.61603373e-01,
+         2.14247694e-01, 6.08972260e-01, 6.35605124e-01, 4.51735394e-02,
+         3.56580833e-01, 3.33245593e-01],
+        [9.56686233e-02, 3.09634487e-01, 5.72034429e-01, 8.64203361e-01,
+         5.44551902e-01, 4.54445926e-01, 1.21606888e-01, 2.30160410e-01,
+         6.14639953e-01, 7.73246535e-01],
+        [8.03011705e-01, 2.69969912e-01, 2.03781951e-01, 6.64806547e-01,
+         4.93709552e-01, 2.60248353e-01, 6.82195033e-01, 6.75837492e-01,
+         5.07293067e-01, 6.45924343e-01],
+        [1.03968071e-01, 1.31787260e-01, 2.31666523e-02, 2.90727455e-01,
+         6.22514068e-02, 9.54996781e-01, 1.38868633e-01, 3.18043546e-01,
+         9.94141764e-01, 6.52825114e-01],
+        [6.72144360e-01, 9.25109790e-01, 9.24907616e-01, 9.97835547e-01,
+         1.30089788e-01, 3.28381980e-01, 9.47761645e-01, 2.15451004e-01,
+         1.55072912e-01, 2.84564825e-01],
+        [5.32157180e-01, 4.05812774e-01, 6.65152077e-01, 1.62793186e-01,
+         8.38375837e-01, 4.38498164e-01, 3.93970103e-01, 3.25181026e-01,
+         8.43314943e-01, 6.37218468e-01],
+        [9.47935236e-01, 1.39071514e-01, 3.34994498e-01, 7.42907508e-01,
+         1.13865457e-01, 3.69531071e-01, 6.58907523e-01, 4.10997683e-01,
+...
+         5.01101857e-01, 6.76530919e-01, 6.01550513e-01, 1.91761020e-01,
+         2.01591335e-01, 3.73443454e-01],
+        [8.72935075e-01, 9.28175014e-01, 7.03819938e-01, 4.25757273e-01,
+         6.80355431e-01, 1.22351044e-01, 8.22086635e-03, 9.23118431e-01,
+         8.00040998e-02, 3.51963004e-01],
+        [5.30917733e-01, 1.73025731e-03, 5.46551386e-01, 3.41904305e-01,
+         6.11276326e-01, 7.83903426e-01, 7.67650251e-01, 9.27383669e-02,
+         5.99146336e-01, 1.44674661e-02],
+        [9.32478257e-02, 6.51279678e-01, 3.40032365e-01, 6.66761485e-02,
+         3.88243075e-01, 3.06181721e-02, 5.58666002e-01, 3.10356676e-01,
+         6.46523629e-01, 1.19013418e-01],
+        [1.81940990e-01, 3.89650142e-01, 9.98204973e-01, 4.39178186e-02,
+         6.88137446e-02, 7.61541679e-02, 6.26075251e-01, 9.14708720e-01,
+         4.45414011e-01, 5.16678456e-01],
+        [8.51618677e-01, 6.81900815e-01, 6.66821786e-01, 8.75685884e-01,
+         2.90499242e-01, 3.25977864e-01, 3.67627054e-01, 3.93770674e-01,
+         7.40898577e-01, 3.50451112e-02],
+        [7.06374026e-01, 7.19519511e-01, 1.79160522e-01, 8.81425785e-01,
+         3.51431945e-01, 4.11507382e-01, 6.86088790e-01, 3.04671156e-01,
+         5.70729870e-01, 7.76584760e-01]]])</pre></div></div></li><li class='xr-section-item'><input id='section-9b9baea0-4285-406d-aa1d-f95f2b8a881a' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-9b9baea0-4285-406d-aa1d-f95f2b8a881a' class='xr-section-summary'  title='Expand/collapse section'>Coordinates: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'></ul></div></li><li class='xr-section-item'><input id='section-e5532c7d-2e5d-4de6-bb3d-ba2a9db36582' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-e5532c7d-2e5d-4de6-bb3d-ba2a9db36582' class='xr-section-summary'  title='Expand/collapse section'>Indexes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'></ul></div></li><li class='xr-section-item'><input id='section-12b9a83a-2b2b-4fc7-bf64-507c7ab3ceec' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-12b9a83a-2b2b-4fc7-bf64-507c7ab3ceec' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
+</div>
+<p>But how are these two DataArrays different from each other? How do we know which array is on CPU vs. GPU?</p>
+</section>
+<section id="checking-for-cupy-arrays">
+<h3>Checking for CuPy Arrays<a class="headerlink" href="#checking-for-cupy-arrays" title="Permalink to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">cupy</span></code> accessor provides the <code class="docutils literal notranslate"><span class="pre">is_cupy</span></code> method to check if these arrays are on the host or device. For example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">da_np</span><span class="o">.</span><span class="n">cupy</span><span class="o">.</span><span class="n">is_cupy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">da_cp</span><span class="o">.</span><span class="n">cupy</span><span class="o">.</span><span class="n">is_cupy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="accessing-device-information-of-the-dataarray">
+<h3>Accessing Device Information of the DataArray<a class="headerlink" href="#accessing-device-information-of-the-dataarray" title="Permalink to this heading">#</a></h3>
+<p>To access the underlying CuPy array, use the <code class="docutils literal notranslate"><span class="pre">data</span></code> property of the DataArray. It returns the CuPy array:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cupy_array</span> <span class="o">=</span> <span class="n">da_cp</span><span class="o">.</span><span class="n">data</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">cupy_array</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cupy.ndarray
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the previous tutorial, we learned about CuPy’s introduction of the notion of a current device. We also learned that to identify the device assigned to a CuPy array, the <code class="docutils literal notranslate"><span class="pre">cupy.ndarray.device</span></code> attribute can be used. Similar concept can be applied to a DataArray:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">da_cp</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">device</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;CUDA Device 0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-transfer">
+<h3>Data Transfer<a class="headerlink" href="#data-transfer" title="Permalink to this heading">#</a></h3>
+<section id="transferring-dataarrays-to-another-device">
+<h4>Transferring DataArrays to another Device<a class="headerlink" href="#transferring-dataarrays-to-another-device" title="Permalink to this heading">#</a></h4>
+<p>In the previous lesson we learned that by default, code execution is carried out on Device 0. However, with CuPy, we have the ability to transfer arrays to other devices using cp.cuda.Device(). This feature becomes particularly valuable when your code is designed to leverage the capabilities of multiple GPUs. Similar concept applies to DataArrays that include Cupy Arrays:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">cp</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">x_on_gpu1</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+    <span class="n">da_cp1</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">x_on_gpu1</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+
+<span class="n">da_cp1</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">device</span>
+</pre></div>
+</div>
+</section>
+<section id="transferring-data-between-host-and-device">
+<h4>Transferring Data between Host and Device<a class="headerlink" href="#transferring-data-between-host-and-device" title="Permalink to this heading">#</a></h4>
+<p>Xarray provides DataArray.as_numpy to convert all kinds of arrays to NumPy arrays.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Move data to host</span>
+<span class="n">da_np</span> <span class="o">=</span> <span class="n">da_cp</span><span class="o">.</span><span class="n">as_numpy</span><span class="p">()</span>
+<span class="n">da_np</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body[data-theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.DataArray (x: 10, y: 10, time: 10)&gt;
+array([[[2.88196731e-01, 3.71102840e-01, 8.22413516e-01, 7.61603373e-01,
+         2.14247694e-01, 6.08972260e-01, 6.35605124e-01, 4.51735394e-02,
+         3.56580833e-01, 3.33245593e-01],
+        [9.56686233e-02, 3.09634487e-01, 5.72034429e-01, 8.64203361e-01,
+         5.44551902e-01, 4.54445926e-01, 1.21606888e-01, 2.30160410e-01,
+         6.14639953e-01, 7.73246535e-01],
+        [8.03011705e-01, 2.69969912e-01, 2.03781951e-01, 6.64806547e-01,
+         4.93709552e-01, 2.60248353e-01, 6.82195033e-01, 6.75837492e-01,
+         5.07293067e-01, 6.45924343e-01],
+        [1.03968071e-01, 1.31787260e-01, 2.31666523e-02, 2.90727455e-01,
+         6.22514068e-02, 9.54996781e-01, 1.38868633e-01, 3.18043546e-01,
+         9.94141764e-01, 6.52825114e-01],
+        [6.72144360e-01, 9.25109790e-01, 9.24907616e-01, 9.97835547e-01,
+         1.30089788e-01, 3.28381980e-01, 9.47761645e-01, 2.15451004e-01,
+         1.55072912e-01, 2.84564825e-01],
+        [5.32157180e-01, 4.05812774e-01, 6.65152077e-01, 1.62793186e-01,
+         8.38375837e-01, 4.38498164e-01, 3.93970103e-01, 3.25181026e-01,
+         8.43314943e-01, 6.37218468e-01],
+        [9.47935236e-01, 1.39071514e-01, 3.34994498e-01, 7.42907508e-01,
+         1.13865457e-01, 3.69531071e-01, 6.58907523e-01, 4.10997683e-01,
+...
+         5.01101857e-01, 6.76530919e-01, 6.01550513e-01, 1.91761020e-01,
+         2.01591335e-01, 3.73443454e-01],
+        [8.72935075e-01, 9.28175014e-01, 7.03819938e-01, 4.25757273e-01,
+         6.80355431e-01, 1.22351044e-01, 8.22086635e-03, 9.23118431e-01,
+         8.00040998e-02, 3.51963004e-01],
+        [5.30917733e-01, 1.73025731e-03, 5.46551386e-01, 3.41904305e-01,
+         6.11276326e-01, 7.83903426e-01, 7.67650251e-01, 9.27383669e-02,
+         5.99146336e-01, 1.44674661e-02],
+        [9.32478257e-02, 6.51279678e-01, 3.40032365e-01, 6.66761485e-02,
+         3.88243075e-01, 3.06181721e-02, 5.58666002e-01, 3.10356676e-01,
+         6.46523629e-01, 1.19013418e-01],
+        [1.81940990e-01, 3.89650142e-01, 9.98204973e-01, 4.39178186e-02,
+         6.88137446e-02, 7.61541679e-02, 6.26075251e-01, 9.14708720e-01,
+         4.45414011e-01, 5.16678456e-01],
+        [8.51618677e-01, 6.81900815e-01, 6.66821786e-01, 8.75685884e-01,
+         2.90499242e-01, 3.25977864e-01, 3.67627054e-01, 3.93770674e-01,
+         7.40898577e-01, 3.50451112e-02],
+        [7.06374026e-01, 7.19519511e-01, 1.79160522e-01, 8.81425785e-01,
+         3.51431945e-01, 4.11507382e-01, 6.86088790e-01, 3.04671156e-01,
+         5.70729870e-01, 7.76584760e-01]]])
+Dimensions without coordinates: x, y, time</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'></div><ul class='xr-dim-list'><li><span>x</span>: 10</li><li><span>y</span>: 10</li><li><span>time</span>: 10</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-efd70244-b5c1-4f6d-960c-09fddedec372' class='xr-array-in' type='checkbox' checked><label for='section-efd70244-b5c1-4f6d-960c-09fddedec372' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>0.2882 0.3711 0.8224 0.7616 0.2142 ... 0.6861 0.3047 0.5707 0.7766</span></div><div class='xr-array-data'><pre>array([[[2.88196731e-01, 3.71102840e-01, 8.22413516e-01, 7.61603373e-01,
+         2.14247694e-01, 6.08972260e-01, 6.35605124e-01, 4.51735394e-02,
+         3.56580833e-01, 3.33245593e-01],
+        [9.56686233e-02, 3.09634487e-01, 5.72034429e-01, 8.64203361e-01,
+         5.44551902e-01, 4.54445926e-01, 1.21606888e-01, 2.30160410e-01,
+         6.14639953e-01, 7.73246535e-01],
+        [8.03011705e-01, 2.69969912e-01, 2.03781951e-01, 6.64806547e-01,
+         4.93709552e-01, 2.60248353e-01, 6.82195033e-01, 6.75837492e-01,
+         5.07293067e-01, 6.45924343e-01],
+        [1.03968071e-01, 1.31787260e-01, 2.31666523e-02, 2.90727455e-01,
+         6.22514068e-02, 9.54996781e-01, 1.38868633e-01, 3.18043546e-01,
+         9.94141764e-01, 6.52825114e-01],
+        [6.72144360e-01, 9.25109790e-01, 9.24907616e-01, 9.97835547e-01,
+         1.30089788e-01, 3.28381980e-01, 9.47761645e-01, 2.15451004e-01,
+         1.55072912e-01, 2.84564825e-01],
+        [5.32157180e-01, 4.05812774e-01, 6.65152077e-01, 1.62793186e-01,
+         8.38375837e-01, 4.38498164e-01, 3.93970103e-01, 3.25181026e-01,
+         8.43314943e-01, 6.37218468e-01],
+        [9.47935236e-01, 1.39071514e-01, 3.34994498e-01, 7.42907508e-01,
+         1.13865457e-01, 3.69531071e-01, 6.58907523e-01, 4.10997683e-01,
+...
+         5.01101857e-01, 6.76530919e-01, 6.01550513e-01, 1.91761020e-01,
+         2.01591335e-01, 3.73443454e-01],
+        [8.72935075e-01, 9.28175014e-01, 7.03819938e-01, 4.25757273e-01,
+         6.80355431e-01, 1.22351044e-01, 8.22086635e-03, 9.23118431e-01,
+         8.00040998e-02, 3.51963004e-01],
+        [5.30917733e-01, 1.73025731e-03, 5.46551386e-01, 3.41904305e-01,
+         6.11276326e-01, 7.83903426e-01, 7.67650251e-01, 9.27383669e-02,
+         5.99146336e-01, 1.44674661e-02],
+        [9.32478257e-02, 6.51279678e-01, 3.40032365e-01, 6.66761485e-02,
+         3.88243075e-01, 3.06181721e-02, 5.58666002e-01, 3.10356676e-01,
+         6.46523629e-01, 1.19013418e-01],
+        [1.81940990e-01, 3.89650142e-01, 9.98204973e-01, 4.39178186e-02,
+         6.88137446e-02, 7.61541679e-02, 6.26075251e-01, 9.14708720e-01,
+         4.45414011e-01, 5.16678456e-01],
+        [8.51618677e-01, 6.81900815e-01, 6.66821786e-01, 8.75685884e-01,
+         2.90499242e-01, 3.25977864e-01, 3.67627054e-01, 3.93770674e-01,
+         7.40898577e-01, 3.50451112e-02],
+        [7.06374026e-01, 7.19519511e-01, 1.79160522e-01, 8.81425785e-01,
+         3.51431945e-01, 4.11507382e-01, 6.86088790e-01, 3.04671156e-01,
+         5.70729870e-01, 7.76584760e-01]]])</pre></div></div></li><li class='xr-section-item'><input id='section-5ca52963-c45f-463a-a2f9-a261e56bc5c6' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-5ca52963-c45f-463a-a2f9-a261e56bc5c6' class='xr-section-summary'  title='Expand/collapse section'>Coordinates: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'></ul></div></li><li class='xr-section-item'><input id='section-598d0786-e5dc-4b1e-9212-629ff0144a07' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-598d0786-e5dc-4b1e-9212-629ff0144a07' class='xr-section-summary'  title='Expand/collapse section'>Indexes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'></ul></div></li><li class='xr-section-item'><input id='section-e200ad7b-6158-4db2-9054-edb7396805a7' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-e200ad7b-6158-4db2-9054-edb7396805a7' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
+</div>
+<p>Let’s confirm this isn’t a CuPy array anymore:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">da_np</span><span class="o">.</span><span class="n">cupy</span><span class="o">.</span><span class="n">is_cupy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<p>We also can convert an Xarray DataArray that include NumPy array to a CuPy array (move data to Device) use <code class="docutils literal notranslate"><span class="pre">cupy.as_cupy()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Move data to GPU</span>
+<span class="n">da_cp</span> <span class="o">=</span> <span class="n">da_np</span><span class="o">.</span><span class="n">cupy</span><span class="o">.</span><span class="n">as_cupy</span><span class="p">()</span>
+<span class="n">da_cp</span><span class="o">.</span><span class="n">as_cupy</span><span class="p">()</span><span class="o">.</span><span class="n">cupy</span><span class="o">.</span><span class="n">is_cupy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="plotting">
+<h3>Plotting<a class="headerlink" href="#plotting" title="Permalink to this heading">#</a></h3>
+<p>Plotting DataArrays with underlying data as CuPy arrays work in the same way as DataArrays with Numpy Arrays; however, data is first transferred to CPU before being plotted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">da_cp</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([111.,  93.,  96., 112.,  88.,  93., 115.,  88.,  98., 106.]),
+ array([5.01237631e-05, 9.98656087e-02, 1.99681094e-01, 2.99496578e-01,
+        3.99312063e-01, 4.99127548e-01, 5.98943033e-01, 6.98758518e-01,
+        7.98574003e-01, 8.98389488e-01, 9.98204973e-01]),
+ &lt;BarContainer object of 10 artists&gt;)
+</pre></div>
+</div>
+<img alt="../_images/6faacf616085285a967889590b3056ef23765105ef12a9d38fcc8ab8b9e9af77.png" src="../_images/6faacf616085285a967889590b3056ef23765105ef12a9d38fcc8ab8b9e9af77.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
+<p>In this notebook, we have learned about:</p>
+<ul class="simple">
+<li><p>CuPy-Xarray Basics</p></li>
+<li><p>Data Transfer between Device to Host</p></li>
+</ul>
+</section>
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://docs.cupy.dev/en/stable/user_guide/index.html">CuPy User Guide</a><br />
+<a class="reference external" href="https://docs.xarray.dev/en/stable/user-guide/index.html">Xarray User Guide</a><br />
+<a class="reference external" href="https://github.com/xarray-contrib/cupy-xarray.git">Cupy-Xarray Github</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Notebook0_Introduction.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Basics of CuPy</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Notebook2_Xarray_Cupy_BasicOperations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Basic Computations in CuPy-Xarray</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-this-tutorial-you-learn">In this tutorial, you learn:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-xarray-dataarray-with-cupy">Creating Xarray DataArray with CuPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-for-cupy-arrays">Checking for CuPy Arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-device-information-of-the-dataarray">Accessing Device Information of the DataArray</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transfer">Data Transfer</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transferring-dataarrays-to-another-device">Transferring DataArrays to another Device</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transferring-data-between-host-and-device">Transferring Data between Host and Device</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Negin Sobhani, Deepak Cherian, and Max Jones
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
