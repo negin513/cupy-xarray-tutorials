@@ -1,15 +1,17 @@
-# CUPY-Xarray SciPy-2023 
+# CuPy-Xarray SciPy-2023 
 
 [![Jupyter Build](https://shields.api-test.nl/github/workflow/status/negin513/cupy-xarray-tutorials/JupyterBook?label=JupyterBook&logo=GitHub&style=flat-square)](https://negin513.github.io/cupy-xarray-tutorials/README.html)
 [![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-green?style=flat-square&logo=Jupyter&color=green)](https://jupyter.org/try)
 
-Welcome to the CUPY-Xarray Notebooks repository for Scipy-2023! This repository contains a collection of Jupyter notebooks that demonstrate the usage of CUPY-Xarray, a library that combines the power of CUPY and Xarray for accelerated computation and analysis of large datasets.
+Welcome to the CuPy-Xarray Notebooks repository for Scipy-2023! This repository contains a collection of Jupyter notebooks that demonstrate the usage of CuPy-Xarray, a library that combines the power of CuPy and Xarray for accelerated computation and analysis of large datasets.
 
-The materials and notebooks in this tutorial is published as a Jupyter book here. [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://negin513.github.io/cupy-xarray-tutorials/README.html)
+Organized by: Negin Sobhani, Deepak Cherian, and Max Jones
+
+The materials and notebooks in these notebooks is published as a Jupyter book here. [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://negin513.github.io/cupy-xarray-tutorials/README.html)
 
 ## What is CUPY-Xarray?
 
-[CUPY-Xarray](https://github.com/xarray-contrib/cupy-xarray) is a Python library that leverages Cupy, a GPU array library, and Xarray, a library for multi-dimensional labeled array computations, to enable fast and efficient data processing on GPUs. By combining the capabilities of Cupy and Xarray, CUPY-Xarray provides a convenient interface for performing accelerated computations and analysis on large multidimensional datasets.
+[CUPY-Xarray](https://github.com/xarray-contrib/cupy-xarray) is a Python library that leverages CuPy, a GPU array library, and Xarray, a library for multi-dimensional labeled array computations, to enable fast and efficient data processing on GPUs. By combining the capabilities of CuPy and Xarray, CuPy-Xarray provides a convenient interface for performing accelerated computations and analysis on large multidimensional datasets.
 
 ## Notebooks
 
