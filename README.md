@@ -5,9 +5,19 @@
 
 Welcome to the CuPy-Xarray Notebooks repository for Scipy-2023! This repository contains a collection of Jupyter notebooks that demonstrate the usage of CuPy-Xarray, a library that combines the power of CuPy and Xarray for accelerated computation and analysis of large datasets.
 
-Organized by: Negin Sobhani, Deepak Cherian, and Max Jones
+**Organized by: Negin Sobhani, Deepak Cherian, and Max Jones**
 
 The materials and notebooks in these notebooks is published as a Jupyter book here. [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://negin513.github.io/cupy-xarray-tutorials/README.html)
+
+## Introductions 
+
+GPU acceleration is becoming increasingly important in scientific research, data analysis, and AI/ML techniques due to its ability to perform massively parallel computations. GPUs can greatly accelerate the processing of array datasets, allowing for faster analysis and modeling of large datasets.  By leveraging the power of GPUs with tools such as CuPy and CuPy-Xarray, Xarray users can gain significant performance improvements and unlock new opportunities for scientific discovery.
+
+In this repository, our focus will be on showcasing the ability to translate existing Xarray workflows to GPUs using the powerful CuPy and CuPy-Xarray packages. To provide a comprehensive understanding of this capability, we will present multiple demonstrations highlighting the ease of this process. Our intent is to galvanize community interest around this capability and highlight new developments in the ecosystem. 
+
+
+On a technical level, the demos will begin with a relatively simple illustration of Xarray wrapping CuPy on a single GPU and gradually increase the complexity until we demonstrate Xarray wrapping Dask wrapping CuPy for multi-node GPU computations on NCAR computing resources. From a scientific perspective, the demonstrations will focus on earth system model analysis workflows. Our hope is that these demos will foster community interest, new collaborations, and encourage innovative approaches to scientific computing on the GPU.
+
 
 ## What is CUPY-Xarray?
 
