@@ -1,7 +1,7 @@
 # Xarray with GPUs (CuPy-Xarray)
 
-[![DOI](https://zenodo.org/badge/635032355.svg)](https://zenodo.org/badge/latestdoi/635032355)
 
+[![DOI](https://zenodo.org/badge/635032355.svg)](https://zenodo.org/badge/latestdoi/635032355)
 
 [![Jupyter Build](https://shields.api-test.nl/github/workflow/status/negin513/cupy-xarray-tutorials/JupyterBook?label=JupyterBook&logo=GitHub&style=flat-square)](https://negin513.github.io/cupy-xarray-tutorials/README.html)
 [![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-green?style=flat-square&logo=Jupyter&color=green)](https://jupyter.org/try)
